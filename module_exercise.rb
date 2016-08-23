@@ -18,14 +18,16 @@
   #     end
   #   end
   # end
-  #
+  # #
   # our_array = Perimeter::Array.new
   # ruby_array = Array.new
+  # # ^^ regular array
   #
-  # p our_array.class
-  # p ruby_array.class
-  #
-  # p our_array.length
+  # puts our_array.class
+  # puts ruby_array.class
+  # #
+  # puts our_array.length
+  # errors until we build a .length method into the Perimeter module
 
 
 
@@ -38,10 +40,15 @@
 #https://github.com/stympy/faker#fakerhacker
 
 # require "faker"
-#
+# #
 # puts Faker::Hacker.say_something_smart
 # puts Faker::Hacker.adjective
 # puts Faker::Hacker.verb
+
+    #  ^      ^     ^
+   # module class method
+
+    # if you ever write a module, wrap things up here
 
 
 #Notice the format of how we're calling the functionality of the Faker gem, How is Faker's code structured?
@@ -55,40 +62,50 @@
 #https://github.com/kqdreger/traveller
 
 #Testing out the traveller gem!
-
-  # require 'traveller'
   #
-  # trav = Traveller.new("Seattle, Minnesota 98101")
+#   require 'traveller'
+#   #
+#   # traveller1 = Traveller.new("Seattle, Minnesota 98101")
+#   #
+#   # puts traveller1.city
+#   # puts traveller1.zip
+#   #
+#   # trav.state = "Washington"
+#   #
+#   # puts traveller1.state
+#
+#
+# ###################################
+# ###### TRAVELLER GEM STEP TWO #####
+# ###################################
+#
+# #I want to create a new class for travellers, called traveller. What could possibly go wrong?
+# module Expedia
+#   class Traveller
+#     attr_accessor :name, :email, :location
+#     def initialize(details_hash)
+#       @name = details_hash[:name]
+#       @email = details_hash[:email]
+#       @location = details_hash[:location]
+#     end
+#   end
+# end
+#
+#   #Tests to use the Traveller Gem (after my class has been created. )
+#     traveller2 = Traveller.new("Chicago 60611 IL")
+#     puts traveller2.state
+#
+#     location = Traveller.new("Seattle, Washington 98101")
+#
+#     user1 = Expedia::Traveller.new(name: "name", email: "email", location: location)
+#
+#     puts user1 #yields location
 
-  # puts traveller1.city
-  # puts traveller1.zip
-  #
-  # trav.state = "Washington"
-  #
-  # puts traveller1.state
 
-
-###################################
-###### TRAVELLER GEM STEP TWO #####
-###################################
-
-#I want to create a new class for travellers, called traveller. What could possibly go wrong?
-  # class Traveller
-  #   attr_accessor :name, :email, :city, :state
-  #   def initialize(details_hash)
-  #     @name = details_hash[:name]
-  #     @email = details_hash[:email]
-  #     @location = Traveller.new(details_hash[:location])
-  #   end
-  # end
-
-  #Tests to use the Traveller Gem (after my class has been created. )
-    # traveller2 = Traveller.new("Chicago 60611 IL")
-    # puts Traveller.state
-
-  #Hmm. It doesn't work. Oh bother.
+  #Hmm. It doesn't work. Oh bother. Whoops we convinced our computer that our Traveller should overwrite the gem because the gem maker didn't use modules, heck.
   #How would we possibly fix this so I don't have to change the name of MY class but still be able to use this gem?
 
+# WRAP IT IN A MODULE!
 
 
   ###################################
@@ -110,38 +127,42 @@
 
 
 
-      #   module Blackjack
-      #     MAX_SCORE = 21
-      #     module Player
-      #         MAX_PLAYERS = 2
-      #         class Player
-      #           def initialize
-      #           end
-      #         end
-      #     end
-      #     module Card
-      #         MAX_VALUE = 13
-      #         class Card
-      #           def get_max_value()
-      #               return MAX_VALUE
-      #           end
-      #         end
-      #     end
-      # end
+        module Blackjack
+          MAX_SCORE = 21
+
+          module Player
+              MAX_PLAYERS = 2
+
+              class Player
+                def initialize
+                end
+              end
+          end
+
+          module Card
+              MAX_VALUE = 13
+
+              class Card
+                def get_max_value() #reader method, but not writer
+                    return MAX_VALUE
+                end
+              end
+          end
+        end
       #
-      # MAX_SCORE = 50
-      # MAX_PLAYERS = 4
-      # MAX_VALUE = 21
+      MAX_SCORE = 50
+      MAX_PLAYERS = 4
+      MAX_VALUE = 21
       #
-      # puts "MAX_SCORE - #{MAX_SCORE}"
-      # puts "Blackjack::MAX_SCORE - #{Blackjack::MAX_SCORE}"
+      puts "MAX_SCORE - #{MAX_SCORE}"
+      puts "Blackjack::MAX_SCORE - #{Blackjack::MAX_SCORE}"
       #
       # puts
       #
-      # puts "MAX_Players - #{MAX_PLAYERS}"
-      # puts "Blackjack::Player::MAX_Players - #{Blackjack::Player::MAX_PLAYERS}"
+      puts "MAX_Players - #{MAX_PLAYERS}"
+      puts "Blackjack::Player::MAX_Players - #{Blackjack::Player::MAX_PLAYERS}"
       #
       # puts
       #
-      # puts "MAX_VALUE - #{MAX_VALUE}"
-      # puts "Blackjack::Card::get_max_value -  #{Blackjack::Card::Card.new().get_max_value()}"`
+      puts "MAX_VALUE - #{MAX_VALUE}"
+      puts "Blackjack::Card::get_max_value -  #{Blackjack::Card::Card.new().get_max_value()}"
